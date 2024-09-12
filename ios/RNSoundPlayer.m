@@ -55,6 +55,8 @@ RCT_EXPORT_MODULE();
 }
 
 RCT_EXPORT_METHOD(playUrl:(NSString *)url withAccessToken:(NSString *)accessToken) {
+    NSLog(@"playUrl called with URL: %@", url);
+
     [self prepareUrl:url withAccessToken:accessToken];
     if (self.avPlayer) {
         [self.avPlayer play];
@@ -237,6 +239,8 @@ RCT_REMAP_METHOD(getInfo,
 }
 
 - (void)prepareUrl:(NSString *)url withAccessToken:(NSString *)accessToken {
+    NSLog(@"prepareUrl called with URL: %@", url);
+
     if (self.player) {
         self.player = nil;
     }
