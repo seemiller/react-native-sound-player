@@ -28,27 +28,27 @@ export default {
     RNSoundPlayer.setNumberOfLoops(loops);
   },
 
-  playUrl: (url: string) => {
-    RNSoundPlayer.playUrl(url);
+  playUrl: (url: string, accessToken: string) => {
+    RNSoundPlayer.playUrl(url, accessToken);
   },
 
   loadUrl: (url: string) => {
     RNSoundPlayer.loadUrl(url);
   },
-  
+
   playAsset: async (asset: number) => {
     if (!(__DEV__) && Platform.OS === "android") {
       RNSoundPlayer.playSoundFile(resolveAsset(asset).uri, '');
     } else {
-      RNSoundPlayer.playUrl(resolveAsset(asset).uri); 
-    } 
+      RNSoundPlayer.playUrl(resolveAsset(asset).uri, null);
+    }
   },
-  
+
   loadAsset: (asset: number) => {
     if (!(__DEV__) && Platform.OS === "android") {
       RNSoundPlayer.loadSoundFile(resolveAsset(asset).uri, '');
     } else {
-      RNSoundPlayer.loadUrl(resolveAsset(asset).uri); 
+      RNSoundPlayer.loadUrl(resolveAsset(asset).uri);
     }
   },
 

@@ -40,7 +40,7 @@ try {
     // play the file tone.mp3
     SoundPlayer.playSoundFile('tone', 'mp3')
     // or play from url
-    SoundPlayer.playUrl('https://example.com/music.mp3')
+    SoundPlayer.playUrl('https://example.com/music.mp3', '')
     // or play file from folder
     SoundPlayer.playAsset(require('./assets/tone.mp3'))
 } catch (e) {
@@ -73,7 +73,9 @@ combination with `getInfo()` to get audio file `duration` without playing it.
 You should subscribe to the `onFinishedLoading` event to get notified when the
 file is loaded.
 
-### `playUrl(url: string)`
+If you need authentication, pass the accessToken.
+
+### `playUrl(url: string, accessToken: string)`
 
 Play the audio from url. Supported formats are:
 

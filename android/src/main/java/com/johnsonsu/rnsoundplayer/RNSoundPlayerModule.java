@@ -86,14 +86,14 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule implements L
   }
 
   @ReactMethod
-  public void playUrl(String url) throws IOException {
-    prepareUrl(url);
+  public void playUrl(String url, String accessToken) throws IOException {
+    prepareUrl(url, accessToken);
     this.resume();
   }
 
   @ReactMethod
   public void loadUrl(String url) throws IOException {
-    prepareUrl(url);
+    prepareUrl(url, null);
   }
 
   @ReactMethod
@@ -203,7 +203,7 @@ public class RNSoundPlayerModule extends ReactContextBaseJavaModule implements L
     return Uri.parse("file://" + folder + "/" + file);
   }
 
-  private void prepareUrl(final String url) throws IOException {
+  private void prepareUrl(final String url, final String accessToken) throws IOException {
     try {
       if (this.mediaPlayer == null) {
         Uri uri = Uri.parse(url);

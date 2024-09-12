@@ -54,15 +54,15 @@ RCT_EXPORT_MODULE();
     hasListeners = NO;
 }
 
-RCT_EXPORT_METHOD(playUrl:(NSString *)url) {
-    [self prepareUrl:url];
+RCT_EXPORT_METHOD(playUrl:(NSString *)url withAccessToken:(NSString *)accessToken) {
+    [self prepareUrl:url withAccessToken:accessToken];
     if (self.avPlayer) {
         [self.avPlayer play];
     }
 }
 
 RCT_EXPORT_METHOD(loadUrl:(NSString *)url) {
-    [self prepareUrl:url];
+    [self prepareUrl:url withAccessToken:nil];
 }
 
 RCT_EXPORT_METHOD(playSoundFile:(NSString *)name ofType:(NSString *)type) {
@@ -236,12 +236,24 @@ RCT_REMAP_METHOD(getInfo,
     }
 }
 
-- (void)prepareUrl:(NSString *)url {
+- (void)prepareUrl:(NSString *)url withAccessToken:(NSString *)accessToken {
     if (self.player) {
         self.player = nil;
     }
+
     NSURL *soundURL = [NSURL URLWithString:url];
-    self.avPlayer = [[AVPlayer alloc] initWithURL:soundURL];
+    NSDictionary *headers;
+    if (accessToken == nil || [accessToken isEqualToString:@""]) {
+        headers = @{};
+    } else {
+        headers = @{
+            @"Authorization": [NSString stringWithFormat:@"Bearer %@", accessToken]
+        };
+    }
+
+    AVURLAsset *asset = [AVURLAsset URLAssetWithURL:soundURL options:@{@"AVURLAssetHTTPHeaderFieldsKey": headers}];
+    AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
+    self.avPlayer = [[AVPlayer alloc] initWithPlayerItem:playerItem];
     [self.avPlayer.currentItem addObserver:self forKeyPath:@"status" options:0 context:nil];
 }
 

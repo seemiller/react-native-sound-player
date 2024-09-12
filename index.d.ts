@@ -19,7 +19,7 @@ declare module "react-native-sound-player" {
     playSoundFile: (name: string, type: string) => void;
     playSoundFileWithDelay: (name: string, type: string, delay: number) => void;
     loadSoundFile: (name: string, type: string) => void;
-    playUrl: (url: string) => void;
+    playUrl: (url: string, accessToken: string) => void;
     loadUrl: (url: string) => void;
     playAsset: (asset: number) => void;
     loadAsset: (asset: number) => void;
