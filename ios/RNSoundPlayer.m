@@ -257,7 +257,7 @@ RCT_REMAP_METHOD(getInfo,
 
     AVURLAsset *asset = [AVURLAsset URLAssetWithURL:soundURL options:@{@"AVURLAssetHTTPHeaderFieldsKey": headers}];
     AVPlayerItem *playerItem = [AVPlayerItem playerItemWithAsset:asset];
-    self.avPlayer = [[AVPlayer alloc] initWithPlayerItem:playerItem];
+    self.avPlayer = [[AVAudioPlayer alloc] initWithPlayerItem:playerItem];
     [self.avPlayer.currentItem addObserver:self forKeyPath:@"status" options:0 context:nil];
 }
 
